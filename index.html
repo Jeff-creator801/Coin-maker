@@ -7,29 +7,68 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
       background: #f5f5f5;
       margin: 0;
-      padding: 50px;
+      padding: 20px;
+      text-align: center;
     }
-    h1 { color: #333; }
-    #ton-connect { margin-top: 20px; }
+    header {
+      background: #007BFF;
+      color: white;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    #ton-connect { margin: 30px auto; }
+    .content {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    footer {
+      margin-top: 50px;
+      color: #777;
+      font-size: 12px;
+    }
   </style>
 </head>
 <body>
-  <h1>Добро пожаловать в Coin Maker</h1>
+  <header>💰 Coin Maker</header>
+
   <div id="ton-connect"></div>
 
+  <div class="content">
+    <h2>Добро пожаловать в Coin Maker</h2>
+    <p>Подключите свой TON кошелек, чтобы начать работу.</p>
+    <p id="wallet-address"></p>
+  </div>
+
+  <footer>
+    © 2025 Coin Maker
+  </footer>
+
   <script>
+    // создаем TonConnect UI
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
       manifestUrl: "https://jeff-creator801.github.io/coin-maker/tonconnect-manifest.json"
     });
 
+    // рендерим кнопку
     tonConnectUI.renderWalletButton("#ton-connect");
 
+    // слушаем изменения статуса кошелька
     tonConnectUI.onStatusChange(wallet => {
       if (wallet) {
-        alert("Кошелек подключен: " + wallet.account.address);
+        document.getElementById("wallet-address").innerText =
+          "✅ Кошелек подключен: " + wallet.account.address;
+      } else {
+        document.getElementById("wallet-address").innerText =
+          "❌ Кошелек не подключен";
       }
     });
   </script>

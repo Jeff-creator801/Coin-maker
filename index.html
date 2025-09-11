@@ -1,76 +1,46 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Coin Maker</title>
+  <meta charset="utf-8" />
+  <title>MiniApp TON Wallet Connect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Telegram SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- TON Connect UI -->
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background: #f5f7fa;
     }
-    header {
-      background: #007BFF;
+    #connectBtn {
+      background: #007bff;
       color: white;
-      padding: 15px;
-      font-size: 22px;
-      font-weight: bold;
-    }
-    #ton-connect { margin: 30px auto; }
-    .content {
-      margin-top: 20px;
-      background: white;
-      padding: 20px;
+      border: none;
       border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 16px 32px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: 0.2s;
     }
-    footer {
-      margin-top: 50px;
-      color: #777;
-      font-size: 12px;
+    #connectBtn:hover {
+      background: #0069d9;
     }
   </style>
 </head>
 <body>
-  <header>💰 Coin Maker</header>
+  <button id="connectBtn">Connect Wallet</button>
+  <div id="walletInfo" style="margin-top:20px;"></div>
 
-  <div id="ton-connect"></div>
-
-  <div class="content">
-    <h2>Добро пожаловать в Coin Maker</h2>
-    <p>Подключите свой TON кошелек, чтобы начать работу.</p>
-    <p id="wallet-address"></p>
-  </div>
-
-  <footer>
-    © 2025 Coin Maker
-  </footer>
-
-  <script>
-    // создаем TonConnect UI
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: "https://jeff-creator801.github.io/coin-maker/tonconnect-manifest.json"
-    });
-
-    // рендерим кнопку
-    tonConnectUI.renderWalletButton("#ton-connect");
-
-    // слушаем изменения статуса кошелька
-    tonConnectUI.onStatusChange(wallet => {
-      if (wallet) {
-        document.getElementById("wallet-address").innerText =
-          "✅ Кошелек подключен: " + wallet.account.address;
-      } else {
-        document.getElementById("wallet-address").innerText =
-          "❌ Кошелек не подключен";
-      }
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
-</html> 
+</html>
